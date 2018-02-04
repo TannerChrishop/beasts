@@ -1,0 +1,31 @@
+<script type ="application/javascript" src = tinytest.js></script>   
+
+<script type = "application/javascript">
+
+function isProtoOf(proto, inheritor) {
+    'use strict';
+    if (proto === Object.getPrototypeOf(inheritor)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+tests({'it should return the same result as isProtoTypeOf': function () {    
+  var foo = {
+	init: function (name, number) {
+        'use strict';
+		this.name = name;
+		this.number = number;
+	    return this;
+    }
+};
+
+var bar = Object.create(foo);
+
+bar.init('Sam', 24);
+
+eq(foo.isPrototypeOf(bar), isProtoOf(foo, bar));  
+    }
+});
+</script>
