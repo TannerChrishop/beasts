@@ -1,0 +1,89 @@
+<script src ="beasts-4.js"></script>
+<script src = "tinytest.js"></script>
+<script>
+
+tests ({
+    
+      'It should retain the functionality of the p version': function () {
+        
+         librarySystem('name', [], function() {
+            return 'Gordon';
+        });
+
+        librarySystem('company', [], function() {
+            return 'Watch and Code';
+        });  
+          
+        librarySystem('workBlurb', ['name', 'company'], function(name, company) {
+            return name + ' works at ' + company;
+        });
+
+        eq (librarySystem('workBlurb'), 'Gordon works at Watch and Code')
+        },
+    
+    'It should allow dependencies to be input after the library they are part of': function () {
+        
+        librarySystem('workBlurb', ['name', 'company'], function(name, company) {
+            return name + ' works at ' + company;
+        });
+
+        librarySystem('name', [], function() {
+            return 'Gordon';
+        });
+
+        librarySystem('company', [], function() {
+            return 'Watch and Code';
+        });
+
+        eq (librarySystem('workBlurb'), 'Gordon works at Watch and Code')
+        },
+        
+    'It should work in any order': function () {
+            
+        librarySystem('company', [], function() {
+            return 'Watch and Code';
+        });
+
+        librarySystem('workBlurb', ['name', 'company'], function(name, company) {
+            return name + ' works at ' + company;
+        });
+
+        librarySystem('name', [], function() {
+            return 'Gordon';
+        });
+
+         eq (librarySystem('workBlurb'), 'Gordon works at Watch and Code')
+        },
+    
+      'it should run the callback for each library only once': function() {
+          
+        var callbackCounter1 = 0;
+        var callbackCounter2 = 0;
+          
+        librarySystem('company', [], function() {
+            callbackCounter1 += 1;
+            return 'unemployed';
+        });
+
+        librarySystem('workBlurb', ['name', 'company'], function(name, company) {
+            return name + ' works at ' + company;
+        });
+
+        librarySystem('name', [], function() {
+            callbackCounter2 += 1;
+            return 'Tanner';
+        });
+          
+        librarySystem('studyBlurb', ['name', 'company'], function(name, company) {
+            return name + ' tries to learn Javascript while ' + company;
+        }); 
+          
+        librarySystem('workBlurb');
+        librarySystem('studyBlurb');
+        eq(callbackCounter1, 1);
+        eq(callbackCounter2, 1);
+      },
+    
+    
+});
+</script>
