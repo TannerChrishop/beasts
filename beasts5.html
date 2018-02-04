@@ -6,28 +6,39 @@
 
 function isProtoOf(proto, inheritor) {
     'use strict';
-    if (proto === Object.getPrototypeOf(inheritor)) {
+    var result = Object.getPrototypeOf(inheritor);
+    if (result === proto) {
+        return true;
+    } else if (isProtoOf(proto, result)) {
         return true;
     } else {
         return false;
     }
 }
+               
+tests({
+        'it should return true only if the prototype of arg2 is arg1': function () {
+        var foo = {
+	        init: function (name, number) {
+		        this.name = name;
+                this.number = number;
+	            return this;
+            }
+        };
 
-tests({'it should return the same result as isProtoTypeOf': function () {    
-  var foo = {
-	init: function (name, number) {
-        'use strict';
-		this.name = name;
-		this.number = number;
-	    return this;
-    }
-};
+        var bar = Object.create(foo);
 
-var bar = Object.create(foo);
+        bar.init('Sam', 24);
 
-bar.init('Sam', 24);
+        eq(foo.isPrototypeOf(bar), isProtoOf(foo, bar));
+    },
 
-eq(foo.isPrototypeOf(bar), isProtoOf(foo, bar));  
+    'It should search down the prototype chain': function () {
+        var grampa = {};
+        var dad = Object.create(grampa);
+        var son = Object.create(dad);
+    
+        eq(isProtoOf(grampa, son), true);
     }
 });
 </script>
