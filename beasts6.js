@@ -17,3 +17,11 @@ function betterToFixed(value, precision) {
     }
     return returnString;
 }
+
+//Tests
+
+betterToFixed(0.615, 2) // .62
+
+betterToFixed(10.235, 2) // 10.24
+
+betterToFixed(1.005, 2) // 1.01
