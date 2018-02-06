@@ -1,0 +1,28 @@
+h1 {
+    text-align:center;
+}
+
+li {
+    list-style: none;
+}
+
+.input-btn {
+    background-color: cadetblue;
+}
+
+.ion-trash-b {
+    color:red;
+}
+
+.ion-edit {
+    color:orange;
+}
+
+.ion-checkmark {
+    color:green;
+    float:left;
+}
+
+.complete{
+    text-decoration: line-through;
+}
