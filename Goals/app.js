@@ -1,9 +1,3 @@
-//it should take the goal name and display it to the webpage
-//it should have a buttone for edit and a button for delete
-//it should have a button for complete which alters the style
-//delete button should delete
-//edit button should edit
-
 var goalsList = {
     goals: [],
     
