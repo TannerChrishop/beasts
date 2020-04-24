@@ -1,0 +1,32 @@
+/* This is another attempt at the watchandcode beasts challenge "LibrarySystem with Dependencies". 
+    I didn't like how my previous code created a new array for the dependencies when you already 
+    have all the dependencies available as an argument.*/
+
+(function (root, undefined) {
+
+  var libStorage = {};
+
+  function librarySystem(libName, dependencyArray, callback) {
+
+    if (arguments.length > 1) {
+
+      if (dependencyArray.length > 0) {
+
+        dependencyArray.forEach(function (item) {
+
+          if (libStorage[item]) {
+
+            callback = callback.bind(this, libStorage[item]);
+
+          }
+        });
+      }
+
+      libStorage[libName] = callback();
+
+    } else return libStorage[libName];
+  }
+
+  root.librarySystem = librarySystem;
+
+})(window);
